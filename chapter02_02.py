@@ -14,6 +14,7 @@ class Car():
     car_count = 0
 
     def __init__(self, company, details):
+        # 인스턴스 변수를 선언할 때 _를 붙이는 습관
         self._company = company
         self._details = details
         Car.car_count += 1
@@ -61,11 +62,13 @@ print(Car.__doc__)
 print()
 
 # 실행
+# self를 넘기지 않지만 저절로, 자동으로 매개변수가 전달됨
 car1.detail_info() # ID값을 출력한 거랑, 인스턴스 메소드로 self 출력한 거랑 ID가 같음
 car2.detail_info()
 
 # 에러
 # Car.detail_info()
+# 인자가 자동으로 전달되지 않기 때문에 명시적으로 전달
 Car.detail_info(car1)
 Car.detail_info(car2)
 
@@ -74,7 +77,7 @@ print(car1.__class__, car2.__class__)
 print(id(car1.__class__) == id(car3.__class__))
 
 print()
-"""
+
 # 인스턴스 변수
 # 직접 접근(PEP 문법적으로 권장X)
 print(car1._company, car2._company)
@@ -86,6 +89,8 @@ print()
 # 클래스 변수
 
 # 접근
+# 공유가 됨
+# 정석은 클래스 네임으로 접근
 print(car1.car_count)
 print(car2.car_count)
 print(Car.car_count)
@@ -99,11 +104,12 @@ print(Car.__dict__)
 print(car1.__dict__)
 print(car2.__dict__)
 print(car3.__dict__)
+print(dir(car1))
+
+del car2
+# 삭제 확인
+print(car1.car_count)
+print(Car.car_count)
 
 # 인스턴스 네임스페이스 없으면 상위에서 검색
 # 즉, 동일한 이름으로 변수 생성 가능(인스턴스 검색 후 -> 상위(클래스 변수, 부모 클래스 변수))
-del car2
-
-print(car1.car_count)
-print(Car.car_count)
-"""
