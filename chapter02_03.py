@@ -45,6 +45,13 @@ class Car(object):
         return 'After Car Price -> company : {}, price : {}'.format(self._company, self._details.get('price') * Car.price_per_raise)
 
     # Class Method
+    # 클래스 메소드를 만들어서 비율을 변경해보자
+    # 첫번째 인자로 cls를 받는다.
+    # cls가 Car 입니다
+    # 공통적인 클래스 변수들을 컨트롤하고 값을 수정하거나 읽어오거나 read하거나 write할 때
+    # 클래스 메소드를 명시적으로 쓰는겁니다. 그러면 가독성도 좋고 어? 클래스 메소드네. 클래스변수를
+    # 수정하거나. 얘는 클래스 변수가져다가 뭐할려는거지? 그리고 클래스 변수는 모두가 참조하기 때문에 중요
+    # 그래서 집중해서 볼 수 있게
     @classmethod
     def raise_price(cls, per):
         if per <= 1:
@@ -54,6 +61,8 @@ class Car(object):
         return 'Succeed! price increased.'
 
     # Static Method
+    # 스테이틱 메소드는 아무것도 전달받지 않습니다.
+    # 자주쓰이지는 않지만 전체적으로 아우를 수 있는 메소드를 만들고 싶을때
     @staticmethod
     def is_bmw(inst):
         if inst._company == 'Bmw':
@@ -81,9 +90,42 @@ print(car2.get_price())
 print()
 
 # 가격 인상(클래스 메소드 미사용)
+# 직접 접근해서 수정하는 거는 좋지 않아요
 Car.price_per_raise = 1.2
 
 # 가격 정보(인상 후)
 print(car1.get_price_culc())
 print(car2.get_price_culc())
 print()
+
+
+# 가격 인상(클래스 메소드 사용)
+Car.raise_price(1.6)
+print()
+
+# 가격 정보(인상 후 : 클래스메소드)
+print(car1.get_price_culc())
+print(car2.get_price_culc())
+print()
+
+# Bmw 여부(스테이틱 메소드 미사용)
+def is_bmw(inst):
+    if inst._company == 'Bmw':
+        return 'OK! This car is {}.'.format(inst._company)
+    return 'Sorry. This car is not Bmw.'
+
+# 별도의 메소드 작성 후 호출
+print(is_bmw(car1))
+print(is_bmw(car2))
+print()
+
+# Bmw 여부(스테이틱 메소드 사용)
+# 되게 유연해서 클래스로 호출해도 됨 Car.
+# 클래스로 호출(스테이틱)
+print('Static : ', Car.is_bmw(car1))
+print('Static : ', Car.is_bmw(car2))
+print()
+
+# 인스턴스로 호출(스테이틱)
+print('Static : ', car1.is_bmw(car1))
+print('Static : ', car2.is_bmw(car2))
